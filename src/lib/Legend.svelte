@@ -61,14 +61,21 @@
         background-color: #ccc;
     }
 
-    [data-selected=true] {
+    .legend-origin[data-selected=true],
+    .legend-replacement[data-selected=true] {
         background-color: var(--important);;
+    }
+
+    @media(max-width: 600px) {
+        .legend-item[data-selected=false] {
+            display: none;
+        }
     }
 </style>
 
 <div class="legend">
     {#each mappings as key} 
-        <div class="legend-item">
+        <div class="legend-item" data-selected={(target.toLowerCase() === key.origin || target.toLowerCase() === key.replacement) && mod.layered === true}>
             <div class="legend-origin" data-selected={target.toLowerCase() === key.origin && mod.layered === true}>
                 {key.origin}
             </div>
