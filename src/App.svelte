@@ -1,28 +1,43 @@
 <script lang="ts">
   import ActionList from './lib/ActionList.svelte';
   import Header from './lib/Header.svelte';
-  import { kbd_addhook, kbd_configure, kbd_init } from './lib/kbd';
-  import { Sample } from './lib/stories/sample';
   import Story from './lib/Story.svelte';
-  import { progress } from './stores';
+  import { kbd_addhook, kbd_configure, kbd_init } from './lib/kbd';
+  import { Sherlock } from './lib/stories/sherlock';
+  import { layout, progress } from './stores';
   import { HalfQwerty } from './lib/keyboards/half-qwerty';
+  import Legend from './lib/Legend.svelte';
+  import { Layouts } from './lib/keyboards/index';
 
-  let story_name = Sample.name;
-  let story_content = Sample.content;
+  let { name, author, content } = Sherlock;
   let index = 0;
+  let lastKey = '';
 
   progress.subscribe(value => {
     index = value;
   });
 
   function processKey(code: string) {
-    if (code.charAt(0) === story_content.charAt(index)) {
+    lastKey = code.charAt(0);
+
+    if (code.charAt(0) === content.charAt(index)) {
       progress.set(index + 1);
     }
   }
 
+  function changeLayout(newLayout) {
+    localStorage.setItem('layout', newLayout);
+    layout.set(newLayout);
+  }
+
   kbd_init();
-  kbd_configure(HalfQwerty);
+
+  layout.subscribe((newLayout) => {
+    kbd_configure(Layouts[newLayout] ?? HalfQwerty);
+  });
+
+  layout.set(localStorage.getItem('layout') ?? 'half-qwerty');
+
   kbd_addhook(processKey);
 
 </script>
@@ -34,6 +49,7 @@
     width: 100vw;
     height: 100%;
     margin: 0;
+    position: relative;
   }
 
   .content {
@@ -41,18 +57,40 @@
   }
 
   .main-area {
-    padding-top: 75px;
+    display: flex;
+  }
+
+  .top {
+    position: sticky;
+    display: flex;
+    top: 0;
+    background-color: var(--black);
+    padding-bottom: 20px;
+  }
+
+  .grow {
+    flex-grow: 1;
+  }
+
+  .last-key {
+    font-size: 3rem;
   }
 </style>
 
 <main>
   <div class="content">
     <div class="top">
-      <Header />
-      <ActionList />
+      <div class="grow">
+        <Header />
+        <ActionList defaultLayout={localStorage.getItem('layout') ?? 'half-qwerty'} onLayoutChange={changeLayout} />
+        <Legend target={content.charAt(index)} />
+      </div>
+      <div class="last-key">
+        {lastKey}
+      </div>
     </div>
     <div class="main-area">
-      <Story content={story_content} />
+      <Story title={name} author={author} content={content} />
     </div>
   </div>
 </main>

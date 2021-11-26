@@ -1,6 +1,8 @@
 <script type="ts">
     import { progress } from '../stores';
 
+    export var title: string;
+    export var author: string;
     export var content: string;
 
     // The index at which to stop highlighting.
@@ -24,15 +26,36 @@
 
 <style>
     .story-content {
-        font-size: 2rem;
+        font-size: 1.75rem;
+        line-height: 3.5rem;
+        text-align: justify;
     }
 
     .highlighted {
-        color: red;
+        color: var(--important);
+        border-bottom: 2px solid var(--important);
+    }
+
+    header {
+        font-size: 1.75rem;
+        font-weight: bold;
+        color: #888;
+        font-style: italic;
+        display: none;
+    }
+
+    .story {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
     }
 
 </style>
-
-<div class="story-content">
-    <span class="highlighted">{highlighted_content}</span><span class="remaining">{remaining_content}</span>
+<div class="story">
+    <div class="story-metadata">
+        <header>{title} | By {author}</header>
+    </div>
+    <div class="story-content">
+        <span class="highlighted">{highlighted_content}</span><span class="remaining">{remaining_content}</span>
+    </div>
 </div>

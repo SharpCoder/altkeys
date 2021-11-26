@@ -1,5 +1,16 @@
 <script type="ts">
+    import { progress } from '../stores';
+    
+    export let onLayoutChange: (str) => void;
+    export let defaultLayout: string;
 
+    function reset() {
+        progress.set(0);
+    }
+
+    function handleChangeLayout(event: any) {
+        onLayoutChange(event.target.value);
+    }
 </script>
 
 <style>
@@ -32,13 +43,14 @@
     
     <div class="action-list">
         <div class="action-item">
-            <select>
-                <option>Half-Qwerty</option>
-                <option>System Default</option>
+            <select bind:value={defaultLayout} on:change={handleChangeLayout}>
+                <option value="half-qwerty">Half-Qwerty</option>
+                <option value="dvorak">Dvorak</option>
+                <option value="default">System Default</option>
             </select>
         </div>
         <div class="action-item">
-            <button>
+            <button on:click={reset} >
                 Reset
             </button>
         </div>
