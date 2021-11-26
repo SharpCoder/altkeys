@@ -3,13 +3,16 @@
   import Header from './lib/Header.svelte';
   import Story from './lib/Story.svelte';
   import { kbd_addhook, kbd_configure, kbd_init } from './lib/kbd';
-  import { Sherlock } from './lib/stories/sherlock';
+  import { Sherlock1, Sherlock2, Sherlock3, Sherlock4 } from './lib/stories/sherlock';
   import { layout, progress } from './stores';
   import { HalfQwerty } from './lib/keyboards/half-qwerty';
   import Legend from './lib/Legend.svelte';
   import { Layouts } from './lib/keyboards/index';
 
-  let { name, author, content } = Sherlock;
+
+  const stories = [Sherlock1, Sherlock2, Sherlock3, Sherlock4];
+  const story = stories[Math.round(Math.random() * stories.length - 1)];
+  let { name, author, content } = story;
   let index = 0;
   let lastKey = '';
 

@@ -29,6 +29,7 @@
     .legend {
         display: flex;
         flex-wrap: wrap;
+        opacity: 0.5;
     }
 
     .legend-item, .legend-item-space {
@@ -45,8 +46,8 @@
     }
 
     .legend-origin, .legend-replacement {
-        min-width: 30px;
-        min-height: 30px;
+        min-width: 20px;
+        min-height: 20px;
         justify-content: center;
         align-items: center;
         text-align: center;
