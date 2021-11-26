@@ -9,9 +9,11 @@
   import Legend from './lib/Legend.svelte';
   import { Layouts } from './lib/keyboards/index';
 
+  const isLocal = window.location.port === '3000';
 
   const stories = [Sherlock1, Sherlock2, Sherlock3, Sherlock4];
-  const story = stories[Math.round(Math.random() * stories.length - 1)];
+  const storyIdx = Math.round(Math.random() * (stories.length - 1));
+  const story = stories[storyIdx];
   let { name, author, content } = story;
   let index = 0;
   let lastKey = '';
@@ -79,6 +81,10 @@
     font-size: 3rem;
   }
 </style>
+
+{#if !isLocal}
+  <script src="https://proud-twenty.altkeys.net/script.js" data-site="UVFYDOHD" defer></script>
+{/if}
 
 <main>
   <div class="content">
