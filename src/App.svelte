@@ -100,7 +100,7 @@
         <Header />
         <div class="action-area">
           <div class="grow">
-            <ActionList defaultLayout={localStorage.getItem('layout') ?? 'half-qwerty'} onLayoutChange={changeLayout} />
+            <ActionList defaultLayout={localStorage.getItem('layout') ?? 'half-qwerty-left'} onLayoutChange={changeLayout} />
           </div>
           <div class="last-key">
             {lastKey}
