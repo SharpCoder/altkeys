@@ -2,12 +2,12 @@
     import type { KeyboardModule } from "./kbd";
     import { Layouts } from './keyboards';
     import { layout } from '../stores';
-    import { HalfQwerty } from './keyboards/half-qwerty';
+    import { DefaultKeyboard } from './keyboards/default';
 
 
-    let mod: KeyboardModule = HalfQwerty;
+    let mod: KeyboardModule = DefaultKeyboard;
     layout.subscribe(newLayout => {
-        mod = Layouts[newLayout];    
+        mod = Layouts[newLayout] ?? DefaultKeyboard;    
     });
 
     export let target: string;
@@ -29,34 +29,38 @@
     .legend {
         display: flex;
         flex-wrap: wrap;
-        opacity: 0.5;
+        opacity: 0.75;
     }
 
     .legend-item, .legend-item-space {
         display: flex;
         margin-right: 15px;
-        margin-top: 35px;
-        outline: 2px solid var(--white);
+        margin-top: 15px;
         background-color: var(--white);
         color: var(--black);
     }
 
-    .legend-item-space .legend-origin {
+    .legend-item-space .legend-space {
         padding: 0px 20px;
+        width: auto;
     }
 
-    .legend-origin, .legend-replacement {
-        min-width: 20px;
-        min-height: 20px;
+    .legend-origin, .legend-replacement, .legend-space {
         justify-content: center;
         align-items: center;
         text-align: center;
         vertical-align: middle;
+        width: 1.25rem;
+        line-height: 2.25rem;
         font-size: 1.25rem;
-        outline: 2px solid var(--black);
+    }
+
+    .legend-origin {
+        padding-right: 5px;
     }
 
     .legend-replacement {
+        padding-left: 5px; 
         outline: 2px solid var(--black);
         background-color: #ccc;
     }
@@ -85,6 +89,6 @@
         </div>
     {/each}
     <div class="legend-item-space">
-        <div class="legend-origin" data-selected={target === ' '}>Space</div>
+        <div class="legend-space" data-selected={target === ' '}>Space</div>
     </div>
 </div>

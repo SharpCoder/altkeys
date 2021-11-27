@@ -1,7 +1,7 @@
 import type { KeyboardModule } from "../kbd";
 
-export const HalfQwerty: KeyboardModule = {
-    name: 'Half-Qwerty',
+export const HalfQwertyLeft: KeyboardModule = {
+    name: 'Half-Qwerty Left',
     layered: true,
     mapping: {
         // Left hand
@@ -22,3 +22,26 @@ export const HalfQwerty: KeyboardModule = {
         'b': 'n',
     },
 };
+
+export const HalfQwertyRight: KeyboardModule = {
+    name: 'Half-Qwerty Right',
+    layered: true,
+    mapping: {
+        // Right hand
+        'p': 'q',
+        'o': 'w',
+        'i': 'e',
+        'u': 'r',
+        'y': 't',
+        ';': 'a',
+        'l': 's',
+        'k': 'd',
+        'j': 'f',
+        'h': 'g',
+        '/': 'z',
+        '.': 'x',
+        ',': 'c',
+        'm': 'v',
+        'n': 'b',
+    }
+}

@@ -1,8 +1,15 @@
 <script type="ts">
     import { progress } from '../stores';
+    import { Layouts } from './keyboards';
     
     export let onLayoutChange: (str) => void;
     export let defaultLayout: string;
+
+    let keyboards = [];
+
+    for (const keyboard in Layouts) {
+        keyboards.push({ value: keyboard, name: Layouts[keyboard].name });
+    }
 
     function reset() {
         progress.set(0);
@@ -10,6 +17,8 @@
 
     function handleChangeLayout(event: any) {
         onLayoutChange(event.target.value);
+        document.getElementById("keyboard-picker").blur();
+
     }
 </script>
 
@@ -17,7 +26,12 @@
     select {
         border: 2px solid var(--white);
         padding: 4px;
-        width: 120px;
+        width: 200px;
+    }
+
+    select, option, button {
+
+        font-size: 1.2rem;
     }
 
     button {
@@ -43,10 +57,10 @@
     
     <div class="action-list">
         <div class="action-item">
-            <select bind:value={defaultLayout} on:change={handleChangeLayout}>
-                <option value="half-qwerty">Half-Qwerty</option>
-                <option value="dvorak">Dvorak</option>
-                <option value="default">System Default</option>
+            <select id="keyboard-picker" bind:value={defaultLayout} on:change={handleChangeLayout}>
+                {#each keyboards as kb}
+                    <option value={kb.value}>{kb.name}</option>
+                {/each}
             </select>
         </div>
         <div class="action-item">

@@ -1,12 +1,12 @@
 <script type="ts">
     import { layout } from '../stores';
     import type { KeyboardModule } from './kbd';
-import { Layouts } from './keyboards';
-    import { HalfQwerty } from './keyboards/half-qwerty';
+    import { Layouts } from './keyboards';
+    import { DefaultKeyboard } from './keyboards/default';
     
-    let mod: KeyboardModule = HalfQwerty;
+    let mod: KeyboardModule = DefaultKeyboard;
     layout.subscribe(newLayout => {
-        mod = Layouts[newLayout] ?? HalfQwerty;
+        mod = Layouts[newLayout] ?? DefaultKeyboard;
     });
 
 </script>
@@ -15,19 +15,27 @@ import { Layouts } from './keyboards';
     h1 {
         font-size: 2rem;
     }
-    h2 {
-        font-size: 1rem;
-    }
 
     h3 {
         color: var(--accent);
     }
 
+    .container {
+        display: flex;
+        align-items: center;
+        padding-top: 25px;
+    }
+
+    .grow {
+        flex-grow: 1;
+    }
+
 </style>
-<div>
-    <h1>Alt Keys</h1>
-    <h2>Learn new keyboard layouts</h2>
-    {#if mod.layered}
-    <h3>Hold ALT to apply the mappings</h3>
-    {/if}
+<div class="container">
+    <div class="grow">
+        <h1>Alt Keys</h1>
+        {#if mod.layered}
+        <h3>Hold ALT to apply the mappings</h3>
+        {/if}
+    </div>
 </div>

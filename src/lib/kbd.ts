@@ -55,7 +55,7 @@ function keydown(event: KeyboardEvent) {
     }
 
     // Shift is interpreted as S ????
-    if (['Shift', 'ShiftLeft'].includes(code)) {
+    if (['Shift', 'ShiftLeft', 'ShiftRight'].includes(code)) {
         key = '`';
     }
     
